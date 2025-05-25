@@ -1,0 +1,70 @@
+{
+  "name": "@petr-ptacek/vue-resize-container",
+  "author": {
+    "name": "Petr Ptáček",
+    "email": "petr.ptacek99@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/petr-ptacek/vue-resize-container.git"
+  },
+  "private": true,
+  "version": "0.0.0",
+  "description": "Vue 3 component for observing user resize events.",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/vue-resize-container.umd.js",
+  "module": "./dist/vue-resize-container.es.js",
+  "style": "./dist/vue-resize-container.css",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/vue-resize-container.es.js",
+      "require": "./dist/vue-resize-container.umd.js"
+    },
+    "./style.css": "./dist/vue-resize-container.css"
+  },
+  "sideEffects": [
+    "./dist/index.css"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clear": "rimraf dist",
+    "dev": "vite",
+    "prebuild": "npm run type-check",
+    "build": "vite build && npm run build:types",
+    "build:types": "vue-tsc --project ./tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist",
+    "type-check": "vue-tsc --noEmit -p ./tsconfig.app.json",
+    "type-check:watch": "vue-tsc --noEmit -p ./tsconfig.app.json --watch"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
+    "@types/node": "^22.15.21",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "@vue/tsconfig": "^0.7.0",
+    "autoprefixer": "^10.4.21",
+    "modern-normalize": "^3.0.1",
+    "postcss": "^8.5.3",
+    "postcss-nested": "^7.0.2",
+    "rimraf": "^6.0.1",
+    "rollup-plugin-visualizer": "^6.0.0",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vue": "^3.5.14",
+    "vue-tsc": "^2.2.8"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "dependencies": {
+    "@vueuse/core": "^13.2.0",
+    "vue": "^3.3.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

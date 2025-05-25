@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "@vue/tsconfig/tsconfig.dom.json",
+    "./tsconfig.lint.json"
+  ],
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.playground.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "vue-resize-container": [
+        "src/index.ts"
+      ],
+      "vue-resize-container/*": [
+        "src/*"
+      ]
+    }
+  },
+  "include": [
+    "vite-env.d.ts",
+    "playground/**/*.ts",
+    "playground/**/*.tsx",
+    "playground/**/*.vue"
+  ]
+}

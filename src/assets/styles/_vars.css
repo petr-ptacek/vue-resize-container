@@ -1,0 +1,7 @@
+:root {
+  --vue-rc-resizer-color: lightblue;
+  --vue-rc-resizer-color-hover: skyblue;
+  --vue-rc-resizer-size: 6px;
+  --vue-rc-resizer-size-hover: 6px;
+  --vue-rc-resizer-transition-duration: 0.1s;
+}

@@ -1,0 +1,28 @@
+.vue-resize-container {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+
+  .vue-resize-container__container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+
+  .vue-resize-container__section {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .vue-resize-container__resizer {
+    position: relative;
+    z-index: 1;
+    background-color: var(--resizer-color);
+    flex: 0 0 auto;
+  }
+
+  &.is-resizing {
+    user-select: none;
+  }
+}
