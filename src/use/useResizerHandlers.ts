@@ -98,7 +98,7 @@ export function useResizerHandlers(
   return {
     pointerPosition: readonly(pointerPosition),
     pointerOffset: readonly(pointerOffset),
-    isResizerHover: readonly(isResizing),
+    isResizerHover: readonly(isResizerHover),
     isResizing: readonly(isResizing),
 
     resizerMouseDownHandler,

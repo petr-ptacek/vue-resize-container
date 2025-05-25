@@ -1,0 +1,10 @@
+.vue-resize-container-button {
+  cursor: pointer;
+}
+
+.vue-resize-container-button__icon {
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}

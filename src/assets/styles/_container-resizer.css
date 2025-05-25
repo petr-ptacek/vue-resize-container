@@ -1,0 +1,32 @@
+.vue-resize-container-resizer {
+  z-index: 1;
+  background-color: var(--vue-rc-resizer-color);
+  position: relative;
+
+  &,
+  .vue-resize-container-resizer__buttons,
+  .vue-resize-container-resizer__inner {
+    width: 100%;
+    height: 100%;
+  }
+
+  .vue-resize-container-resizer__buttons {
+    position: relative;
+  }
+
+  .vue-resize-container-resizer__inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: inherit;
+    transition-duration: var(--vue-rc-resizer-transition-duration);
+    transition-timing-function: linear;
+  }
+
+  .vue-resize-container-resizer__handler {
+    &:hover {
+      background-color: var(--vue-rc-resizer-color-hover);
+    }
+  }
+}

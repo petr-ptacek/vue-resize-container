@@ -11,13 +11,15 @@ defineEmits<{
 <template>
   <div class="vue-resize-container-buttons">
     <ButtonExpand
-      title="Expand"
       @click="$emit('expand', $event)"
-    />
+    >
+      <slot name="iconExpand" />
+    </ButtonExpand>
     <div class="vue-resize-container-buttons__splitter"></div>
     <ButtonCollapse
-      title="Collapse"
       @click="$emit('collapse', $event)"
-    />
+    >
+      <slot name="iconCollapse" />
+    </ButtonCollapse>
   </div>
 </template>

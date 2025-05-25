@@ -1,2 +1,10 @@
-body {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /*--vue-rc-resizer-size: 6px;*/
+  /*--vue-rc-resizer-size-hover: 6px;*/
 }

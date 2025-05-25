@@ -1,7 +1,8 @@
 :root {
-  --vue-rc-resizer-color: lightblue;
-  --vue-rc-resizer-color-hover: skyblue;
+  --vue-rc-resizer-color: #b8b8b8;
+  --vue-rc-resizer-color-hover: #c8c8c8;
   --vue-rc-resizer-size: 6px;
   --vue-rc-resizer-size-hover: 6px;
-  --vue-rc-resizer-transition-duration: 0.1s;
+  --vue-rc-resizer-transition-duration: 0.2s;
+  --vue-rc-buttons-offset: 50px;
 }

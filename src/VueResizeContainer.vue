@@ -28,11 +28,17 @@ const {
   direction,
   initialSize
 });
+
+defineSlots<{
+  sectionAlpha: () => void;
+  sectionBeta: () => void;
+  buttonIconCollapse: () => void;
+  buttonIconExpand: () => void;
+}>();
 </script>
 
 <template>
   <div
-    ref="container"
     :data-origin="origin"
     :data-direction="direction"
     :class="{
@@ -52,26 +58,41 @@ const {
         data-section="alpha"
         class="vue-resize-container__section"
       >
-        <slot name="alpha" />
+        <slot name="sectionAlpha" />
       </div>
 
       <div
-        ref="resizer"
         class="vue-resize-container__resizer"
       >
-        <div class="vue-resize-container-resizer">
+        <div
+          ref="resizer"
+          class="vue-resize-container-resizer"
+        >
+          <div class="vue-resize-container-resizer__inner">
+            <div
+              class="vue-resize-container-resizer__buttons"
+            >
+              <ButtonsBox
+                @expand="expand"
+                @collapse="collapse"
+              >
+                <template #iconExpand>
+                  <slot name="buttonIconExpand" />
+                </template>
+                <template #iconCollapse>
+                  <slot name="buttonIconCollapse" />
+                </template>
+              </ButtonsBox>
+            </div>
+          </div>
+
           <div
-            class="vue-resize-container-resizer__inner"
+            class="vue-resize-container-resizer__inner vue-resize-container-resizer__handler"
             @mouseenter="resizerMouseEnterHandler"
             @mouseleave="resizerMouseLeaveHandler"
             @mousedown.left="resizerMouseDownHandler"
           ></div>
         </div>
-
-        <ButtonsBox
-          @expand="expand"
-          @collapse="collapse"
-        />
       </div>
 
       <div
@@ -80,7 +101,7 @@ const {
         data-section="beta"
         class="vue-resize-container__section"
       >
-        <slot name="beta" />
+        <slot name="sectionBeta" />
       </div>
     </div>
   </div>

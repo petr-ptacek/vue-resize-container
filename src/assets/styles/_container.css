@@ -18,7 +18,6 @@
   .vue-resize-container__resizer {
     position: relative;
     z-index: 1;
-    background-color: var(--resizer-color);
     flex: 0 0 auto;
   }
 
@@ -26,3 +25,75 @@
     user-select: none;
   }
 }
+
+/*******************************
+ *HORIZONTAL FROM LEFT TO RIGHT
+********************************/
+.vue-resize-container[data-direction="horizontal"] {
+  .vue-resize-container__container {
+    flex-direction: row;
+  }
+
+  .vue-resize-container__resizer {
+    width: var(--vue-rc-resizer-size);
+    height: 100%;
+  }
+
+  .vue-resize-container-resizer__inner {
+    cursor: col-resize;
+    transition-property: width;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &[data-origin="alpha"] {
+    .vue-resize-container-buttons {
+      top: var(--vue-rc-buttons-offset);
+      left: 100%;
+      transition: left var(--vue-rc-resizer-transition-duration);
+      flex-direction: column;
+
+      .vue-resize-container-buttons__button {
+        &[data-action="expand"] {
+          border-top-right-radius: 4px;
+        }
+
+        &[data-action="collapse"] {
+          border-bottom-right-radius: 4px;
+        }
+      }
+    }
+
+    &.is-resizer-hover {
+      .vue-resize-container-resizer__inner {
+        width: var(--vue-rc-resizer-size-hover);
+      }
+    }
+  }
+
+  &.is-expanded {
+    &[data-origin="alpha"] {
+      .vue-resize-container-buttons {
+        left: unset;
+        right: 100%;
+        transition: right var(--vue-rc-resizer-transition-duration);
+
+        .vue-resize-container-buttons__button {
+          &[data-action="expand"] {
+
+          }
+        }
+
+        .vue-resize-container-buttons__button {
+          &[data-action="collapse"] {
+
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+

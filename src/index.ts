@@ -1,4 +1,4 @@
-import "./assets/styles/style.pcss";
+// import "./assets/styles/style.css";
 import VueResizeContainerSection from "./components/ResizeContainerSection.vue";
 import VueResizeContainer        from "./VueResizeContainer.vue";
 
