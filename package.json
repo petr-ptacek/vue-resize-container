@@ -61,8 +61,7 @@
     "vue": "^3.3.0"
   },
   "dependencies": {
-    "@vueuse/core": "^13.2.0",
-    "vue": "^3.3.0"
+    "@vueuse/core": "^13.2.0"
   },
   "engines": {
     "node": ">=20.0.0"
