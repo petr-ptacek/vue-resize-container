@@ -3,6 +3,7 @@ import tsPlugin       from "@typescript-eslint/eslint-plugin";
 import tsParser       from "@typescript-eslint/parser";
 import prettierPlugin from "eslint-plugin-prettier";
 import vuePlugin      from "eslint-plugin-vue";
+import vueParser      from "vue-eslint-parser";
 
 export default [
   {
@@ -59,7 +60,16 @@ export default [
       "@typescript-eslint": tsPlugin,
       prettier: prettierPlugin
     },
-    processor: vuePlugin.processors.vue,
+    languageOptions: {
+      parser: vueParser, // <- musí být vue-eslint-parser
+      parserOptions: {
+        parser: tsParser, // <- vnitřní <script> bude parsovat TS parser
+        project: ["./tsconfig.app.json", "./tsconfig.playground.json"],
+        extraFileExtensions: [".vue"],
+        ecmaVersion: "latest",
+        sourceType: "module"
+      }
+    },
     rules: {
       ...vuePlugin.configs.recommended.rules,
       ...tsPlugin.configs.recommended.rules,

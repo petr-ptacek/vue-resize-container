@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import type { AppResizeContainerProps } from "./types";
-import { useResizer }                   from "./use";
-import { ButtonsBox }                   from "./components";
+import { useResizer } from "./use";
+import { ButtonsBox } from "./components";
 
 const {
   origin = "alpha",
   direction = "horizontal",
-  initialSize = ["50%", "50%"]
+  initialSize = ["50%", "50%"],
 } = defineProps<AppResizeContainerProps>();
 
 // const storageData = useStorage(storageKey);
@@ -22,11 +22,11 @@ const {
   isResizerHover,
   isResizing,
   isExpanded,
-  isCollapsed
+  isCollapsed,
 } = useResizer({
   origin,
   direction,
-  initialSize
+  initialSize,
 });
 
 defineSlots<{
@@ -42,16 +42,17 @@ defineSlots<{
     :data-origin="origin"
     :data-direction="direction"
     :class="{
-			'is-resizing': isResizing,
-			'is-resizer-hover': isResizerHover,
-			'is-expanded': isExpanded,
-			'is-collapsed': isCollapsed
-		}"
+      'is-resizing': isResizing,
+      'is-resizer-hover': isResizerHover,
+      'is-expanded': isExpanded,
+      'is-collapsed': isCollapsed,
+    }"
     class="vue-resize-container"
   >
     <div
       ref="container"
-      class="vue-resize-container__container">
+      class="vue-resize-container__container"
+    >
       <div
         ref="sectionAlpha"
         :style="alphaStateSize.styleObj.value"
@@ -61,17 +62,13 @@ defineSlots<{
         <slot name="sectionAlpha" />
       </div>
 
-      <div
-        class="vue-resize-container__resizer"
-      >
+      <div class="vue-resize-container__resizer">
         <div
           ref="resizer"
           class="vue-resize-container-resizer"
         >
           <div class="vue-resize-container-resizer__inner">
-            <div
-              class="vue-resize-container-resizer__buttons"
-            >
+            <div class="vue-resize-container-resizer__buttons">
               <ButtonsBox
                 @expand="expand"
                 @collapse="collapse"
