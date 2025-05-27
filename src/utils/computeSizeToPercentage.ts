@@ -1,12 +1,12 @@
 import type { DirectionValue } from "../types";
-import { toPercentageValue }   from "./toPercentageValue";
+import { toPercentageValue } from "./toPercentageValue";
 
 export type Params = {
   containerElement: HTMLElement;
   resizerElement: HTMLElement;
   size: number;
   direction: DirectionValue;
-}
+};
 
 export function computeSizeToPercentage(params: Params) {
   const { size, direction, containerElement, resizerElement } = params;
@@ -15,7 +15,7 @@ export function computeSizeToPercentage(params: Params) {
   const containerSize = containerElement.getBoundingClientRect();
   const resizerSize = resizerElement.getBoundingClientRect();
 
-  switch ( direction ) {
+  switch (direction) {
     case "horizontal":
       base = containerSize.width - resizerSize.width;
       break;
@@ -24,8 +24,5 @@ export function computeSizeToPercentage(params: Params) {
       break;
   }
 
-  return toPercentageValue(
-    size,
-    base
-  );
+  return toPercentageValue(size, base);
 }

@@ -15,7 +15,11 @@ import ButtonBase from "./ButtonBase.vue";
         stroke-width="1.5"
         stroke="currentColor"
       >
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15.75 19.5 8.25 12l7.5-7.5"
+        />
       </svg>
     </slot>
   </ButtonBase>

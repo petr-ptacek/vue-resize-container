@@ -1,6 +1,6 @@
 import type { DirectionValue, OriginValue, Point } from "../types";
-import { getPositionFromEvent }                    from "./getPositionFromEvent";
-import { getPositionRelativeTo }                   from "./getPositionRelativeTo";
+import { getPositionFromEvent } from "./getPositionFromEvent";
+import { getPositionRelativeTo } from "./getPositionRelativeTo";
 
 export type Params = {
   evt: MouseEvent;
@@ -11,15 +11,15 @@ export type Params = {
   resizerElement: HTMLElement;
   pointerOffset: Point;
   origin: OriginValue;
-}
+};
 
 export function computeSizesFromMouseEvent(params: Params) {
   let sizes = {
     alpha: params.alphaSize,
-    beta: params.betaSize
+    beta: params.betaSize,
   };
 
-  switch ( params.direction ) {
+  switch (params.direction) {
     case "horizontal":
       sizes = _computeSizesHorizontal(params);
       break;
@@ -31,22 +31,18 @@ export function computeSizesFromMouseEvent(params: Params) {
   return sizes;
 }
 
-
 function _computeSizesVertical(params: Params) {
   const { evt, containerElement, resizerElement, origin, pointerOffset } = params;
   const containerRect = containerElement.getBoundingClientRect();
   const resizerRect = resizerElement.getBoundingClientRect();
 
-  const { y: posY } = getPositionRelativeTo(
-    getPositionFromEvent(evt),
-    containerElement
-  );
+  const { y: posY } = getPositionRelativeTo(getPositionFromEvent(evt), containerElement);
   let alpha = posY;
   let beta = containerRect.height;
   beta -= posY;
   beta -= resizerRect.height;
 
-  switch ( origin ) {
+  switch (origin) {
     case "alpha":
       alpha -= pointerOffset.y;
       break;
@@ -57,7 +53,7 @@ function _computeSizesVertical(params: Params) {
 
   return {
     alpha,
-    beta
+    beta,
   };
 }
 
@@ -66,14 +62,11 @@ function _computeSizesHorizontal(params: Params) {
   const containerRect = containerElement.getBoundingClientRect();
   const resizerRect = resizerElement.getBoundingClientRect();
 
-  const { x: posX } = getPositionRelativeTo(
-    getPositionFromEvent(evt),
-    containerElement
-  );
+  const { x: posX } = getPositionRelativeTo(getPositionFromEvent(evt), containerElement);
   let alpha = 0;
   let beta = 0;
 
-  switch ( origin ) {
+  switch (origin) {
     case "alpha":
       alpha = posX - pointerOffset.x;
       beta = containerRect.width - alpha - resizerRect.width;
@@ -86,6 +79,6 @@ function _computeSizesHorizontal(params: Params) {
 
   return {
     alpha,
-    beta
+    beta,
   };
 }

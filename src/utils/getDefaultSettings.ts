@@ -5,6 +5,6 @@ export function getDefaultSettings(): DefaultSettings {
     initialSize: ["50%", "50%"],
     storageKey: "resizeContainer",
     origin: "alpha",
-    direction: "horizontal"
+    direction: "horizontal",
   };
 }

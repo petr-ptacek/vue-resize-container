@@ -1,87 +1,100 @@
-import js             from "@eslint/js";
-import tsPlugin       from "@typescript-eslint/eslint-plugin";
-import tsParser       from "@typescript-eslint/parser";
-import prettierPlugin from "eslint-plugin-prettier";
-import vuePlugin      from "eslint-plugin-vue";
-import vueParser      from "vue-eslint-parser";
+//@ts-nocheck
+import js from "@eslint/js";
+import { defineConfig } from "eslint/config";
+import importPlugin from "eslint-plugin-import";
+import prettier from "eslint-plugin-prettier";
+import pluginVue from "eslint-plugin-vue";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+import vueParser from "vue-eslint-parser";
 
-export default [
+export default defineConfig([
   {
-    files: ["**/*.{js,jsx,mjs}"],
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module"
-      }
-    },
-    plugins: {
-      prettier: prettierPlugin
-    },
-    rules: {
-      ...js.configs.recommended.rules,
-      "prettier/prettier": "error"
-      // "import/order": [
-      //   "error",
-      //   {
-      //     groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
-      //     "newlines-between": "always",
-      //     alphabetize: {
-      //       order: "asc",
-      //       caseInsensitive: true,
-      //     },
-      //   },
-      // ],
-    }
+    ignores: ["playground/**", "dist/**", "node_modules/**", "package.lock.json"],
   },
+  // JS/TS/Vue soubory (obecná nastavení)
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts,vue}"],
     languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        project: ["./tsconfig.app.json", "./tsconfig.playground.json", "./tsconfig.node.json"],
-        ecmaVersion: "latest",
-        sourceType: "module"
-      }
+      ecmaVersion: "latest",
+      globals: globals.browser,
     },
-    plugins: {
-      "@typescript-eslint": tsPlugin,
-      prettier: prettierPlugin
-    },
+    plugins: { js, prettier, import: importPlugin },
+    extends: ["js/recommended"],
     rules: {
-      ...tsPlugin.configs.recommended.rules,
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "",
+        },
+      ],
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin", // např. fs, path
+            "external", // npm balíčky
+            "internal", // interní moduly (můžeš definovat v settings)
+            ["parent", "sibling", "index"], // relativní cesty
+          ],
+          "newlines-between": "always",
+          alphabetize: {
+            order: "asc" /* řadí abecedně */,
+            caseInsensitive: true,
+          },
+        },
+      ],
       "prettier/prettier": "error",
-      "@typescript-eslint/no-unused-vars": ["warn"]
-    }
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        {
+          "ts-ignore": true, // zakázat `// @ts-ignore`
+          "ts-expect-error": true, // zakázat `// @ts-expect-error`
+          "ts-nocheck": false, // povolit `// @ts-nocheck`
+          "ts-check": false, // povolit `// @ts-check`,
+          //minimumDescriptionLength: 5, // Pokud je nastaveno, @ts-ignore musí být doprovázen popisem
+        },
+      ],
+    },
   },
+  // TypeScript podpora
+  ...tseslint.configs.recommended,
+
+  // Vue podpora (bezpečnější kombinace)
   {
     files: ["**/*.vue"],
-    plugins: {
-      vue: vuePlugin,
-      "@typescript-eslint": tsPlugin,
-      prettier: prettierPlugin
-    },
     languageOptions: {
-      parser: vueParser, // <- musí být vue-eslint-parser
+      parser: vueParser,
       parserOptions: {
-        parser: tsParser, // <- vnitřní <script> bude parsovat TS parser
-        project: ["./tsconfig.app.json", "./tsconfig.playground.json"],
-        extraFileExtensions: [".vue"],
+        parser: tseslint.parser, // důležité!
         ecmaVersion: "latest",
-        sourceType: "module"
-      }
+        sourceType: "module",
+        extraFileExtensions: [".vue"],
+        project: ["./tsconfig.app.json", "./tsconfig.playground.json"], // pokud chceš type-aware linting
+      },
+    },
+    plugins: {
+      vue: pluginVue,
     },
     rules: {
-      ...vuePlugin.configs.recommended.rules,
-      ...tsPlugin.configs.recommended.rules,
-      "prettier/prettier": "error",
-      "vue/multi-word-component-names": "off",
-      "@typescript-eslint/no-unused-vars": ["warn"]
-    }
+      ...pluginVue.configs["flat/essential"].rules,
+    },
   },
-  {
-    files: ["playground/**/*.{ts,js,vue}"],
-    rules: {
-      "no-console": "off"
-    }
-  }
-];
+
+  // // JSON
+  // {
+  //   files: ["**/*.json"],
+  //   plugins: { json },
+  //   language: "json/json",
+  //   extends: ["json/recommended"],
+  // },
+  //
+  // // CSS
+  // {
+  //   files: ["**/*.css"],
+  //   plugins: { css },
+  //   language: "css/css",
+  //   extends: ["css/recommended"],
+  // },
+]);

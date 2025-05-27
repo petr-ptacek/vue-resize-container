@@ -1,16 +1,16 @@
 import type { DirectionValue } from "../types";
 
 export type Params = {
-  size: number,
+  size: number;
   direction: DirectionValue;
   containerElement: HTMLElement;
   resizerElement: HTMLElement;
-}
+};
 
 export function normalizeSize(params: Params) {
   const { size, direction } = params;
 
-  switch ( direction ) {
+  switch (direction) {
     case "vertical":
       return _normalizeVertical(params);
     case "horizontal":
@@ -25,9 +25,9 @@ function _normalizeHorizontal(params: Params) {
   const containerSize = containerElement.getBoundingClientRect();
   const resizerSize = resizerElement.getBoundingClientRect();
 
-  if ( size < 0 ) {
+  if (size < 0) {
     return 0;
-  } else if ( size > containerSize.width ) {
+  } else if (size > containerSize.width) {
     return containerSize.width - resizerSize.width;
   } else {
     return size;
@@ -39,10 +39,9 @@ function _normalizeVertical(params: Params) {
   const containerSize = containerElement.getBoundingClientRect();
   const resizerSize = resizerElement.getBoundingClientRect();
 
-
-  if ( size < 0 ) {
+  if (size < 0) {
     return 0;
-  } else if ( size > containerSize.height ) {
+  } else if (size > containerSize.height) {
     return containerSize.height - resizerSize.height;
   } else {
     return size;

@@ -1,6 +1,7 @@
 import { computed, type MaybeRefOrGetter, readonly, shallowRef, toValue } from "vue";
-import type { OriginValue }                                               from "../types";
-import type { UseSizeStateReturn }                                        from "./useSizeState";
+
+import type { OriginValue } from "../types";
+import type { UseSizeStateReturn } from "./useSizeState";
 
 export type UseExpandOrCollapseOptions = {
   type: "expand" | "collapse";
@@ -11,29 +12,20 @@ export type UseExpandOrCollapseOptions = {
   resizerElement: MaybeRefOrGetter<HTMLElement | null>;
 };
 
-export function useExpandOrCollapse(
-  options: UseExpandOrCollapseOptions
-) {
-  const {
-    alphaSizeState,
-    betaSizeState
-  } = options;
+export function useExpandOrCollapse(options: UseExpandOrCollapseOptions) {
+  const { alphaSizeState, betaSizeState } = options;
 
-  const sizesBefore = shallowRef<
-    { alpha: number, beta: number } | null
-  >(null);
+  const sizesBefore = shallowRef<{ alpha: number; beta: number } | null>(null);
 
-  const isActive = computed(
-    () => !!sizesBefore.value
-  );
+  const isActive = computed(() => !!sizesBefore.value);
 
   function activate() {
     const alpha = alphaSizeState.sizePercentage.value;
     const beta = betaSizeState.sizePercentage.value;
 
-    switch ( toValue(options.origin) ) {
+    switch (toValue(options.origin)) {
       case "alpha":
-        switch ( options.type ) {
+        switch (options.type) {
           case "expand":
             alphaSizeState.setSize("100%");
             betaSizeState.setSize(0);
@@ -45,7 +37,7 @@ export function useExpandOrCollapse(
         }
         break;
       case "beta":
-        switch ( options.type ) {
+        switch (options.type) {
           case "expand":
             alphaSizeState.setSize(0);
             betaSizeState.setSize("100%");
@@ -60,7 +52,7 @@ export function useExpandOrCollapse(
 
     sizesBefore.value = {
       alpha,
-      beta
+      beta,
     };
   }
 
@@ -68,12 +60,12 @@ export function useExpandOrCollapse(
     const { beta, alpha } = sizesBefore.value!;
 
     sizesBefore.value = null;
-    alphaSizeState.setSize(`${ alpha }%`);
-    betaSizeState.setSize(`${ beta }%`);
+    alphaSizeState.setSize(`${alpha}%`);
+    betaSizeState.setSize(`${beta}%`);
   }
 
   function setActive(value: boolean) {
-    if ( value ) {
+    if (value) {
       activate();
     } else {
       deactivate();
@@ -85,6 +77,6 @@ export function useExpandOrCollapse(
     sizesBefore: readonly(sizesBefore),
     activate,
     deactivate,
-    setActive
+    setActive,
   };
 }

@@ -1,6 +1,7 @@
 import { computed, type MaybeRefOrGetter, readonly, ref, toValue, watch } from "vue";
-import type { DirectionValue, SizeValue }                                 from "../types";
-import { normalizeSize, parseSizeValue, computeSizeToPercentage }         from "../utils";
+
+import type { DirectionValue, SizeValue } from "../types";
+import { normalizeSize, parseSizeValue, computeSizeToPercentage } from "../utils";
 
 export type UseSizeStateOptions = {
   direction: MaybeRefOrGetter<DirectionValue>;
@@ -11,50 +12,41 @@ export type UseSizeStateOptions = {
 export type UseSizeStateReturn = ReturnType<typeof useSizeState>;
 
 export function useSizeState(options: UseSizeStateOptions) {
-  const direction = computed(
-    () => toValue(options.direction)
-  );
-  const containerElement = computed(
-    () => toValue(options.containerElement)
-  );
-  const resizerElement = computed(
-    () => toValue(options.resizerElement)
-  );
+  const direction = computed(() => toValue(options.direction));
+  const containerElement = computed(() => toValue(options.containerElement));
+  const resizerElement = computed(() => toValue(options.resizerElement));
 
   const size = ref(0);
   const sizePercentage = ref(0);
 
-  watch(
-    [size, direction],
-    () => {
-      if ( !containerElement.value || !resizerElement.value ) {
-        return;
-      }
-
-      sizePercentage.value = computeSizeToPercentage({
-        size: size.value,
-        direction: direction.value,
-        containerElement: containerElement.value,
-        resizerElement: resizerElement.value
-      });
+  watch([size, direction], () => {
+    if (!containerElement.value || !resizerElement.value) {
+      return;
     }
-  );
 
-  const styleObj = computed<Record<string, any>>(() => {
+    sizePercentage.value = computeSizeToPercentage({
+      size: size.value,
+      direction: direction.value,
+      containerElement: containerElement.value,
+      resizerElement: resizerElement.value,
+    });
+  });
+
+  const styleObj = computed(() => {
     let width: string | null = null;
     let height: string | null = null;
 
-    if ( direction.value === "horizontal" ) {
-      width = `${ sizePercentage.value }%`;
+    if (direction.value === "horizontal") {
+      width = `${sizePercentage.value}%`;
     }
 
-    if ( direction.value === "vertical" ) {
-      height = `${ sizePercentage.value }%`;
+    if (direction.value === "vertical") {
+      height = `${sizePercentage.value}%`;
     }
 
     return {
       width,
-      height
+      height,
     };
   });
 
@@ -67,14 +59,14 @@ export function useSizeState(options: UseSizeStateOptions) {
       value: sizeValue,
       direction,
       containerElement,
-      resizerElement
+      resizerElement,
     });
 
     size.value = normalizeSize({
       size: parsedSizeValue,
       direction,
       containerElement,
-      resizerElement
+      resizerElement,
     });
   }
 
@@ -83,6 +75,6 @@ export function useSizeState(options: UseSizeStateOptions) {
     sizePercentage: readonly(sizePercentage),
     styleObj,
 
-    setSize
+    setSize,
   };
 }

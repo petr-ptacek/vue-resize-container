@@ -1,7 +1,4 @@
+import ButtonsBox from "./ButtonsBox.vue";
 import ResizeContainerSection from "./ResizeContainerSection.vue";
-import ButtonsBox                from "./ButtonsBox.vue";
 
-export {
-  ResizeContainerSection,
-  ButtonsBox
-};
+export { ResizeContainerSection, ButtonsBox };

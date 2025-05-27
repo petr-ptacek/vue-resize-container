@@ -1,8 +1,9 @@
-import { useDebounceFn }                                                           from "@vueuse/core";
-import { type MaybeRefOrGetter, onUnmounted, readonly, ref, shallowRef, toValue }  from "vue";
-import type { DirectionValue, OriginValue, Point }                                 from "../types";
+import { useDebounceFn } from "@vueuse/core";
+import { type MaybeRefOrGetter, onUnmounted, readonly, ref, shallowRef, toValue } from "vue";
+
+import type { DirectionValue, OriginValue, Point } from "../types";
 import { computeSizesFromMouseEvent, getPositionFromEvent, getPositionRelativeTo } from "../utils";
-import type { UseSizeStateReturn }                                                 from "./useSizeState";
+import type { UseSizeStateReturn } from "./useSizeState";
 
 export type UseResizerHandlersOptions = {
   alphaSizeState: UseSizeStateReturn;
@@ -11,13 +12,11 @@ export type UseResizerHandlersOptions = {
   direction: MaybeRefOrGetter<DirectionValue>;
   containerElement: MaybeRefOrGetter<HTMLElement | null>;
   resizerElement: MaybeRefOrGetter<HTMLElement | null>;
-}
+};
 
 export type UseResizerHandlersReturn = ReturnType<typeof useResizerHandlers>;
 
-export function useResizerHandlers(
-  options: UseResizerHandlersOptions
-) {
+export function useResizerHandlers(options: UseResizerHandlersOptions) {
   const isResizerHover = ref(false);
   const isResizing = ref(false);
   const pointerPosition = shallowRef<Point>({ x: 0, y: 0 });
@@ -26,15 +25,9 @@ export function useResizerHandlers(
   const _windowMousemoveDebounced = useDebounceFn(windowMouseMoveHandler, 0);
 
   onUnmounted(() => {
-    window.removeEventListener(
-      "mousemove",
-      _windowMousemoveDebounced
-    );
+    window.removeEventListener("mousemove", _windowMousemoveDebounced);
 
-    window.removeEventListener(
-      "mouseup",
-      windowMouseUpHandler
-    );
+    window.removeEventListener("mouseup", windowMouseUpHandler);
   });
 
   function resizerMouseEnterHandler(_evt: MouseEvent) {
@@ -49,13 +42,10 @@ export function useResizerHandlers(
     isResizing.value = true;
     pointerPosition.value = {
       x: evt.clientX,
-      y: evt.clientY
+      y: evt.clientY,
     };
 
-    pointerOffset.value = getPositionRelativeTo(
-      getPositionFromEvent(evt),
-      evt.currentTarget as HTMLElement
-    );
+    pointerOffset.value = getPositionRelativeTo(getPositionFromEvent(evt), evt.currentTarget as HTMLElement);
 
     window.addEventListener("mousemove", _windowMousemoveDebounced);
     window.addEventListener("mouseup", windowMouseUpHandler);
@@ -72,7 +62,7 @@ export function useResizerHandlers(
       alphaSize: alphaSizeState.size.value,
       betaSize: betaSizeState.size.value,
       resizerElement: toValue(options.resizerElement)!,
-      containerElement: toValue(options.containerElement)!
+      containerElement: toValue(options.containerElement)!,
     });
 
     alphaSizeState.setSize(alpha);
@@ -84,15 +74,9 @@ export function useResizerHandlers(
     pointerPosition.value = { x: 0, y: 0 };
     pointerOffset.value = { x: 0, y: 0 };
 
-    window.removeEventListener(
-      "mousemove",
-      _windowMousemoveDebounced
-    );
+    window.removeEventListener("mousemove", _windowMousemoveDebounced);
 
-    window.removeEventListener(
-      "mouseup",
-      windowMouseUpHandler
-    );
+    window.removeEventListener("mouseup", windowMouseUpHandler);
   }
 
   return {
@@ -103,6 +87,6 @@ export function useResizerHandlers(
 
     resizerMouseDownHandler,
     resizerMouseEnterHandler,
-    resizerMouseLeaveHandler
+    resizerMouseLeaveHandler,
   };
 }

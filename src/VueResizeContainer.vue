@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import { ButtonsBox } from "./components";
 import type { AppResizeContainerProps } from "./types";
 import { useResizer } from "./use";
-import { ButtonsBox } from "./components";
 
 const {
   origin = "alpha",

@@ -33,16 +33,26 @@
     "README.md"
   ],
   "scripts": {
+    "prepare": "husky",
     "clear": "rimraf dist",
     "dev": "vite",
     "prebuild": "npm run type-check",
     "build": "vite build && npm run build:types",
     "build:types": "vue-tsc --project ./tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist",
     "type-check": "vue-tsc --noEmit -p ./tsconfig.app.json",
-    "type-check:watch": "vue-tsc --noEmit -p ./tsconfig.app.json --watch"
+    "type-check:watch": "vue-tsc --noEmit -p ./tsconfig.app.json --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,vue}": [
+      "eslint --fix"
+    ]
   },
   "devDependencies": {
+    "@eslint/css": "^0.8.1",
     "@eslint/js": "^9.27.0",
+    "@eslint/json": "^0.12.0",
     "@tsconfig/node22": "^22.0.2",
     "@types/node": "^22.15.21",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
@@ -56,6 +66,9 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.4.0",
     "eslint-plugin-vue": "^10.1.0",
+    "globals": "^16.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.0.0",
     "modern-normalize": "^3.0.1",
     "postcss": "^8.5.3",
     "postcss-nested": "^7.0.2",
@@ -63,6 +76,7 @@
     "rimraf": "^6.0.1",
     "rollup-plugin-visualizer": "^6.0.0",
     "typescript": "~5.8.3",
+    "typescript-eslint": "^8.32.1",
     "vite": "^6.3.5",
     "vue": "^3.5.14",
     "vue-eslint-parser": "^10.1.3",

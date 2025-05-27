@@ -1,95 +1,72 @@
 import { useEventListener, useDebounceFn } from "@vueuse/core";
-import { onMounted, useTemplateRef }       from "vue";
-import type { UseResizerOptions }          from "../types";
-import { useExpandOrCollapse }             from "./useExpandOrCollapse";
-import { useResizerHandlers }              from "./useResizerHandlers";
-import { useSizeState }                    from "./useSizeState";
+import { onMounted, useTemplateRef } from "vue";
+
+import type { UseResizerOptions } from "../types";
+import { useExpandOrCollapse } from "./useExpandOrCollapse";
+import { useResizerHandlers } from "./useResizerHandlers";
+import { useSizeState } from "./useSizeState";
 
 export function useResizer(options: UseResizerOptions) {
-  const $container = useTemplateRef<HTMLElement>(
-    "container"
-  );
-  const $resizer = useTemplateRef<HTMLElement>(
-    "resizer"
-  );
+  const $container = useTemplateRef<HTMLElement>("container");
+  const $resizer = useTemplateRef<HTMLElement>("resizer");
 
   const alphaSizeState = useSizeState({
     resizerElement: $resizer,
     containerElement: $container,
-    direction: options.direction
+    direction: options.direction,
   });
 
   const betaSizeState = useSizeState({
     resizerElement: $resizer,
     containerElement: $container,
-    direction: options.direction
+    direction: options.direction,
   });
 
-  const {
-    isActive: isCollapsed,
-    setActive: setCollapsed
-  } = useExpandOrCollapse({
+  const { isActive: isCollapsed, setActive: setCollapsed } = useExpandOrCollapse({
     type: "collapse",
     alphaSizeState,
     betaSizeState,
     containerElement: $container,
     resizerElement: $resizer,
-    origin: options.origin
+    origin: options.origin,
   });
 
-  const {
-    isActive: isExpanded,
-    setActive: setExpanded
-  } = useExpandOrCollapse({
+  const { isActive: isExpanded, setActive: setExpanded } = useExpandOrCollapse({
     type: "expand",
     origin: options.origin,
     containerElement: $container,
     resizerElement: $resizer,
     alphaSizeState,
-    betaSizeState
+    betaSizeState,
   });
 
-  const {
-    resizerMouseDownHandler,
-    resizerMouseEnterHandler,
-    resizerMouseLeaveHandler,
-    isResizing,
-    isResizerHover
-  } = useResizerHandlers({
-    resizerElement: $resizer,
-    containerElement: $container,
-    direction: options.direction,
-    origin: options.origin,
-    alphaSizeState,
-    betaSizeState
+  const { resizerMouseDownHandler, resizerMouseEnterHandler, resizerMouseLeaveHandler, isResizing, isResizerHover } =
+    useResizerHandlers({
+      resizerElement: $resizer,
+      containerElement: $container,
+      direction: options.direction,
+      origin: options.origin,
+      alphaSizeState,
+      betaSizeState,
+    });
+
+  const _onWindowResizedDebounce = useDebounceFn(_onWindowResized, 100);
+
+  useEventListener(window, "resize", _onWindowResizedDebounce);
+
+  onMounted(() => {
+    const [alpha, beta] = options.initialSize;
+    alphaSizeState.setSize(alpha);
+    betaSizeState.setSize(beta);
   });
-
-  const _onWindowResizedDebounce = useDebounceFn(
-    _onWindowResized,
-    100
-  );
-
-  useEventListener(
-    window,
-    "resize",
-    _onWindowResizedDebounce
-  );
-
-  onMounted(
-    () => {
-      const [alpha, beta] = options.initialSize;
-      alphaSizeState.setSize(alpha);
-      betaSizeState.setSize(beta);
-    }
-  );
 
   function _onWindowResized() {
-    alphaSizeState.setSize(`${ alphaSizeState.sizePercentage.value }%`);
-    betaSizeState.setSize(`${ betaSizeState.sizePercentage.value }%`);
+    alphaSizeState.setSize(`${alphaSizeState.sizePercentage.value}%`);
+    betaSizeState.setSize(`${betaSizeState.sizePercentage.value}%`);
   }
 
   function expand() {
-    if ( isCollapsed.value ) {
+    if (isCollapsed.value) {
       return void setCollapsed(false);
     }
 
@@ -97,7 +74,7 @@ export function useResizer(options: UseResizerOptions) {
   }
 
   function collapse() {
-    if ( isExpanded.value ) {
+    if (isExpanded.value) {
       return void setExpanded(false);
     }
 
@@ -117,6 +94,6 @@ export function useResizer(options: UseResizerOptions) {
     isExpanded,
 
     alphaStateSize: alphaSizeState,
-    betaStateSize: betaSizeState
+    betaStateSize: betaSizeState,
   };
 }
