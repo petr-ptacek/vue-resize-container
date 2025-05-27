@@ -66,7 +66,7 @@ export function useResizer(options: UseResizerOptions) {
   }
 
   function expand() {
-    if (isCollapsed.value ) {
+    if (isCollapsed.value) {
       return void setCollapsed(false);
     }
 
