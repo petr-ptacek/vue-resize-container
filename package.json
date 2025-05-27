@@ -13,6 +13,23 @@
   "description": "Vue 3 component for observing resizing sections at container.",
   "type": "module",
   "license": "MIT",
+  "scripts": {
+    "prepare": "husky || true",
+    "clear": "rimraf dist",
+    "dev": "vite",
+    "prebuild": "npm run type-check",
+    "build": "vite build && npm run build:types",
+    "build:types": "vue-tsc --project ./tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist",
+    "type-check": "vue-tsc --noEmit -p ./tsconfig.app.json",
+    "type-check:watch": "vue-tsc --noEmit -p ./tsconfig.app.json --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,vue}": [
+      "eslint --fix"
+    ]
+  },
   "main": "./dist/vue-resize-container.umd.js",
   "module": "./dist/vue-resize-container.es.js",
   "style": "./dist/vue-resize-container.css",
@@ -32,23 +49,6 @@
     "dist",
     "README.md"
   ],
-  "scripts": {
-    "prepare": "husky || true",
-    "clear": "rimraf dist",
-    "dev": "vite",
-    "prebuild": "npm run type-check",
-    "build": "vite build && npm run build:types",
-    "build:types": "vue-tsc --project ./tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist",
-    "type-check": "vue-tsc --noEmit -p ./tsconfig.app.json",
-    "type-check:watch": "vue-tsc --noEmit -p ./tsconfig.app.json --watch",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
-  },
-  "lint-staged": {
-    "**/*.{js,ts,vue}": [
-      "eslint --fix"
-    ]
-  },
   "devDependencies": {
     "@eslint/css": "^0.8.1",
     "@eslint/js": "^9.27.0",
