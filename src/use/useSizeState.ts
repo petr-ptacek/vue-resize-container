@@ -33,8 +33,8 @@ export function useSizeState(options: UseSizeStateOptions) {
   });
 
   const styleObj = computed(() => {
-    let width: string | null = null;
-    let height: string | null = null;
+    let width: string | undefined = undefined;
+    let height: string | undefined = undefined;
 
     if (direction.value === "horizontal") {
       width = `${sizePercentage.value}%`;

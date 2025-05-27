@@ -3,6 +3,7 @@ import js from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import importPlugin from "eslint-plugin-import";
 import prettier from "eslint-plugin-prettier";
+import unusedImports from "eslint-plugin-unused-imports";
 import pluginVue from "eslint-plugin-vue";
 import globals from "globals";
 import tseslint from "typescript-eslint";
@@ -19,9 +20,20 @@ export default defineConfig([
       ecmaVersion: "latest",
       globals: globals.browser,
     },
-    plugins: { js, prettier, import: importPlugin },
+    plugins: { js, prettier, import: importPlugin, "unused-imports": unusedImports },
     extends: ["js/recommended"],
     rules: {
+      "no-unused-vars": "off", // or "@typescript-eslint/no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "error", // ⚠️ smaže nepoužité importy při `--fix`
+      "unused-imports/no-unused-vars": [
+        "warn",
+        {
+          vars: "all",
+          varsIgnorePattern: "^_",
+          args: "after-used",
+          argsIgnorePattern: "^_",
+        },
+      ],
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
