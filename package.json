@@ -17,13 +17,15 @@
     "prepare": "husky || true",
     "clear": "rimraf dist",
     "dev": "vite",
-    "prebuild": "npm run type-check && npm run lint",
+    "prebuild": "npm run type-check && npm run lint && npm run stylelint",
     "build": "vite build && npm run build:types",
     "build:types": "vue-tsc --project ./tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist",
     "type-check": "vue-tsc --noEmit -p ./tsconfig.app.json",
     "type-check:watch": "vue-tsc --noEmit -p ./tsconfig.app.json --watch",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "stylelint": "stylelint \"**/*.{css,vue}\"",
+    "stylelint:fix": "stylelint \"**/*.{css,vue}\" --fix"
   },
   "lint-staged": {
     "**/*.{js,ts,vue}": [
@@ -76,6 +78,8 @@
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
     "rollup-plugin-visualizer": "^6.0.0",
+    "stylelint": "^16.19.1",
+    "stylelint-config-standard": "^38.0.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.32.1",
     "vite": "^6.3.5",

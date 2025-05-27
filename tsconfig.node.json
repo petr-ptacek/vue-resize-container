@@ -15,6 +15,7 @@
   "include": [
     "vite.config.ts",
     "postcss.config.js",
-    "eslint.config.js"
+    "eslint.config.js",
+    "stylelint.config.js"
   ]
 }
