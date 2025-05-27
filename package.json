@@ -33,7 +33,7 @@
     "README.md"
   ],
   "scripts": {
-    "prepare": "husky",
+    "prepare": "husky || true",
     "clear": "rimraf dist",
     "dev": "vite",
     "prebuild": "npm run type-check",
