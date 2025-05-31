@@ -40,10 +40,13 @@
   }
 
   .vue-resize-container-resizer__inner {
-    cursor: col-resize;
     transition-property: width;
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  .vue-resize-container-resizer__handler {
+    cursor: col-resize;
   }
 
   &[data-origin="alpha"] {
@@ -55,11 +58,11 @@
 
       .vue-resize-container-buttons__button {
         &[data-action="expand"] {
-          border-top-right-radius: 4px;
+          border-top-right-radius: var(--vue-rc-button-border-radius);
         }
 
         &[data-action="collapse"] {
-          border-bottom-right-radius: 4px;
+          border-bottom-right-radius: var(--vue-rc-button-border-radius);
         }
       }
     }
@@ -80,20 +83,20 @@
 
         .vue-resize-container-buttons__button {
           &[data-action="expand"] {
-
+            border-radius: 0;
+            border-top-left-radius: var(--vue-rc-button-border-radius);
           }
         }
 
         .vue-resize-container-buttons__button {
           &[data-action="collapse"] {
-
+            border-radius: 0;
+            border-bottom-left-radius: var(--vue-rc-button-border-radius);
           }
         }
       }
     }
   }
-
 }
-
 
 

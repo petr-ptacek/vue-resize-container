@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import ButtonCollapse from "./ButtonCollapse.vue";
-import ButtonExpand from "./ButtonExpand.vue";
+import ButtonBase from "./ButtonBase.vue";
 
 defineEmits<{
   expand: [MouseEvent];
@@ -10,12 +9,49 @@ defineEmits<{
 
 <template>
   <div class="vue-resize-container-buttons">
-    <ButtonExpand @click="$emit('expand', $event)">
-      <slot name="iconExpand" />
-    </ButtonExpand>
+    <ButtonBase
+      class="vue-resize-container-buttons__button"
+      data-action="expand"
+      @click="$emit('expand', $event)"
+    >
+      <slot name="iconExpand">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m8.25 4.5 7.5 7.5-7.5 7.5"
+          />
+        </svg>
+      </slot>
+    </ButtonBase>
+
     <div class="vue-resize-container-buttons__splitter"></div>
-    <ButtonCollapse @click="$emit('collapse', $event)">
-      <slot name="iconCollapse" />
-    </ButtonCollapse>
+    <ButtonBase
+      class="vue-resize-container-buttons__button"
+      data-action="collapse"
+      @click="$emit('collapse', $event)"
+    >
+      <slot name="iconCollapse">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 19.5 8.25 12l7.5-7.5"
+          />
+        </svg>
+      </slot>
+    </ButtonBase>
   </div>
 </template>
