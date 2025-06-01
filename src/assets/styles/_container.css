@@ -34,6 +34,12 @@
     flex-direction: row;
   }
 
+  .vue-resize-container-buttons {
+    transform: translateY(-50%);
+    top: var(--vue-rc-buttons-offset);
+    flex-direction: column;
+  }
+
   .vue-resize-container__resizer {
     width: var(--vue-rc-resizer-size);
     height: 100%;
@@ -51,10 +57,8 @@
 
   &[data-origin="alpha"] {
     .vue-resize-container-buttons {
-      top: var(--vue-rc-buttons-offset);
       left: 100%;
       transition: left var(--vue-rc-resizer-transition-duration);
-      flex-direction: column;
 
       .vue-resize-container-buttons__button {
         &[data-action="expand"] {
@@ -100,3 +104,101 @@
 }
 
 
+/********************************
+ *VERTICAL FROM TOP TO BOTTOM
+ ********************************/
+.vue-resize-container[data-direction="vertical"] {
+  .vue-resize-container__container {
+    flex-direction: column;
+  }
+
+  .vue-resize-container__resizer {
+    width: 100%;
+    height: var(--vue-rc-resizer-size);
+  }
+
+  .vue-resize-container-buttons {
+    left: var(--vue-rc-buttons-offset);
+    transform: translateX(var(--vue-rc-buttons-translate));
+    flex-direction: row;
+    transition: top var(--vue-rc-resizer-transition-duration);
+  }
+
+  .vue-resize-container-resizer__inner {
+    transition-property: height;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+  }
+
+  .vue-resize-container-resizer__handler {
+    cursor: row-resize;
+  }
+
+  &.is-resizer-hover {
+    .vue-resize-container-resizer__inner {
+      height: var(--vue-rc-resizer-size-hover);
+    }
+  }
+
+  /*
+   * ORIGIN IS ALPHA - THE TOP SIDE
+   */
+
+  &[data-origin="alpha"] {
+    .vue-resize-container-buttons {
+      top: 100%;
+
+      .vue-resize-container-buttons__button {
+        &[data-action="expand"] {
+          border-radius: 0;
+          border-bottom-left-radius: var(--vue-rc-button-border-radius);
+
+          .vue-resize-container-button__icon {
+            transform: rotate(90deg);
+          }
+        }
+
+        &[data-action="collapse"] {
+          border-radius: 0;
+          border-bottom-right-radius: var(--vue-rc-button-border-radius);
+
+          .vue-resize-container-button__icon {
+            transform: rotate(90deg);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * ORIGIN IS BETA - THE BOTTOM SIDE
+   */
+
+  &[data-origin="beta"] {
+    .vue-resize-container-buttons {
+      bottom: 100%;
+
+      .vue-resize-container-buttons__button {
+
+        &[data-action="expand"] {
+          border-radius: 0;
+          border-top-left-radius: var(--vue-rc-button-border-radius);
+
+          .vue-resize-container-button__icon {
+            transform: rotate(-90deg);
+          }
+        }
+
+        &[data-action="collapse"] {
+          border-radius: 0;
+          border-top-right-radius: var(--vue-rc-button-border-radius);
+
+          .vue-resize-container-button__icon {
+            transform: rotate(-90deg);
+          }
+        }
+      }
+    }
+  }
+}

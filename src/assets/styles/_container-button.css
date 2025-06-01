@@ -1,10 +1,15 @@
 .vue-resize-container-button {
   cursor: pointer;
+  padding: 0.5rem;
 }
 
 .vue-resize-container-button__icon {
+  width: max-content;
+  height: max-content;
+
   svg {
-    width: 1rem;
-    height: 1rem;
+    display: block;
+    width: var(--vue-rc-button-icon-size, 1rem);
+    height: var(--vue-rc-button-icon-size, 1rem);
   }
 }

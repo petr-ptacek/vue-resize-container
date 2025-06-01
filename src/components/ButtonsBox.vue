@@ -1,10 +1,23 @@
 <script lang="ts" setup>
 import ButtonBase from "./ButtonBase.vue";
 
-defineEmits<{
+const emit = defineEmits<{
   expand: [MouseEvent];
   collapse: [MouseEvent];
 }>();
+
+defineSlots<{
+  iconExpand: () => void;
+  iconCollapse: () => void;
+}>();
+
+function emitExpand(e: MouseEvent): void {
+  emit("expand", e);
+}
+
+function emitCollapse(e: MouseEvent): void {
+  emit("collapse", e);
+}
 </script>
 
 <template>
@@ -12,7 +25,7 @@ defineEmits<{
     <ButtonBase
       class="vue-resize-container-buttons__button"
       data-action="expand"
-      @click="$emit('expand', $event)"
+      @click="emitExpand"
     >
       <slot name="iconExpand">
         <svg
@@ -35,7 +48,7 @@ defineEmits<{
     <ButtonBase
       class="vue-resize-container-buttons__button"
       data-action="collapse"
-      @click="$emit('collapse', $event)"
+      @click="emitCollapse"
     >
       <slot name="iconCollapse">
         <svg
