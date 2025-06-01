@@ -11,6 +11,17 @@
   "private": true,
   "version": "0.0.0",
   "description": "Vue 3 component for observing resizing sections at container.",
+  "keywords": [
+    "vue3",
+    "vue",
+    "resize",
+    "container",
+    "sections",
+    "resizeable container",
+    "container wrapper",
+    "expand",
+    "collapse"
+  ],
   "type": "module",
   "license": "MIT",
   "scripts": {
