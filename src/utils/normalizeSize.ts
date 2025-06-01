@@ -7,7 +7,7 @@ export type Params = {
   resizerElement: HTMLElement;
 };
 
-export function normalizeSize(params: Params) {
+export function normalizeSize(params: Params): number {
   const { size, direction } = params;
 
   switch (direction) {
@@ -20,7 +20,7 @@ export function normalizeSize(params: Params) {
   }
 }
 
-function _normalizeHorizontal(params: Params) {
+function _normalizeHorizontal(params: Params): number {
   const { containerElement, resizerElement, size } = params;
   const containerSize = containerElement.getBoundingClientRect();
   const resizerSize = resizerElement.getBoundingClientRect();
@@ -34,7 +34,7 @@ function _normalizeHorizontal(params: Params) {
   }
 }
 
-function _normalizeVertical(params: Params) {
+function _normalizeVertical(params: Params): number {
   const { containerElement, resizerElement, size } = params;
   const containerSize = containerElement.getBoundingClientRect();
   const resizerSize = resizerElement.getBoundingClientRect();

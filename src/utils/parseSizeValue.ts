@@ -8,7 +8,7 @@ export type Params = {
   direction: DirectionValue;
 };
 
-export function parseSizeValue(params: Params) {
+export function parseSizeValue(params: Params): number {
   const { resizerElement, containerElement, value, direction } = params;
   if (typeof value === "number") {
     return value;
