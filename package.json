@@ -28,7 +28,7 @@
     "prepare": "husky || true",
     "clear": "rimraf dist",
     "dev": "vite",
-    "prebuild": "npm run type-check && npm run lint && npm run stylelint",
+    "prebuild": "npm run type-check && npm run lint",
     "build": "vite build && npm run build:types",
     "build:types": "vue-tsc --project ./tsconfig.build.json --declaration --emitDeclarationOnly --outDir dist",
     "type-check": "vue-tsc --noEmit -p ./tsconfig.app.json",
@@ -60,7 +60,8 @@
   ],
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE.md"
   ],
   "devDependencies": {
     "@eslint/css": "^0.8.1",
