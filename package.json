@@ -45,7 +45,7 @@
     "./style.css": "./dist/vue-resize-container.css"
   },
   "sideEffects": [
-    "./dist/index.css"
+    "./dist/vue-resize-container.css"
   ],
   "files": [
     "dist",
