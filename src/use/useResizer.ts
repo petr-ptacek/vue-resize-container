@@ -24,11 +24,11 @@ export function useResizer(options: UseResizerOptions) {
 
   const { isActive: isCollapsed, setActive: setCollapsed } = useExpandOrCollapse({
     type: "collapse",
-    alphaSizeState,
-    betaSizeState,
+    origin: options.origin,
     containerElement: $container,
     resizerElement: $resizer,
-    origin: options.origin,
+    alphaSizeState,
+    betaSizeState,
   });
 
   const { isActive: isExpanded, setActive: setExpanded } = useExpandOrCollapse({
