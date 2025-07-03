@@ -35,7 +35,7 @@
   }
 
   .vue-resize-container-buttons {
-    transform: translateY(-50%);
+    transform: translateY(var(--vue-rc-buttons-translate));
     top: var(--vue-rc-buttons-offset);
     flex-direction: column;
   }
